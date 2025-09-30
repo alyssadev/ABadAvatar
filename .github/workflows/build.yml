@@ -1,0 +1,26 @@
+on:
+  push:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Download tools
+        run: |
+          curl -L https://github.com/grimdoomer/Xbox360BadUpdate/releases/download/v1.2/Tools.zip -O
+          Expand-Archive -Path Tools.zip -DestinationPath Tools
+      - name: Build
+        run: |
+          build_exploit.bat Avatar
+          build_exploit.bat RBB
+          build_exploit.bat THAW
+        shell: cmd
+      - name: Upload
+        uses: actions/upload-artifact
+        with:
+          path: bin/RETAIL_BUILD/*
