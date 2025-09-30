@@ -14,11 +14,14 @@ jobs:
         run: |
           curl -L https://github.com/grimdoomer/Xbox360BadUpdate/releases/download/v1.2/Tools.zip -O
           Expand-Archive -Path Tools.zip -DestinationPath Tools
-      - name: Build
-        run: |
-          build_exploit.bat Avatar
-          build_exploit.bat RBB
-          build_exploit.bat THAW
+      - name: Build Avatar
+        run: build_exploit.bat Avatar
+        shell: cmd
+      - name: Build RBB
+        run: build_exploit.bat RBB
+        shell: cmd
+      - name: Build THAW
+        run: build_exploit.bat THAW
         shell: cmd
       - name: Upload
         uses: actions/upload-artifact@v4
